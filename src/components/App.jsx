@@ -10,6 +10,13 @@ function App() {
     text: "",
   });
   const [notelist, setNoteList] = useState([]);
+  function deleteNote(id) {
+    setNoteList((prevNoteList) => {
+      return prevNoteList.filter((item, index) => {
+        return index !== id;
+      });
+    });
+  }
   return (
     <div>
       <Header />
@@ -20,7 +27,15 @@ function App() {
         notelist={notelist}
       />
       {notelist.map((currNote, index) => {
-        return <Note key={index} title={currNote.title} text={currNote.text} />;
+        return (
+          <Note
+            key={index}
+            id={index}
+            deleteNote={deleteNote}
+            title={currNote.title}
+            text={currNote.text}
+          />
+        );
       })}
 
       <Footer />
